@@ -1,6 +1,6 @@
 # Delayed::ClassName Plugin
 
-[Delayed Job](https://github.com/collectiveidea/delayed_job) records a serialized payload object to the `delayed_jobs` table. If you want to know what _kinds of_ jobs are currently enqueued, you must write complicated and brittle queries to parse the serialized payloads (ie `Delayed::Job#handler`).
+[Delayed Job](https://github.com/collectiveidea/delayed_job) records a serialized payload object to the `delayed_jobs` table. If you want to know what _kinds of_ jobs are currently enqueued, you must write complicated and brittle queries that parse the serialized payloads (ie the `Delayed::Job#handler` column). This gem exists to make queue administration more convenient. :sparkles:
 
 This plugin adds an indexed `class_name` column to the `delayed_jobs` table. By default, it contains the stringified class name of the enqeued payload object.
 
