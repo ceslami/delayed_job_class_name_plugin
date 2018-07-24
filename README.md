@@ -35,12 +35,13 @@ Let's see how we can use the `#custom_parser` configuration to accomplish this:
 
 ```ruby
 # config/initializers/delayed_job.rb
+
 Delayed::ClassName.configure do |c|
-  c.custom_parser = ->(job) {
-    if job.class == ActiveJob::QueueAdapters::DelayedJobAdapter::JobWrapper
-      job.payload_object.job_data['job_class']
+  c.custom_parser = ->(payload_object) {
+    if payload_object.class == ActiveJob::QueueAdapters::DelayedJobAdapter::JobWrapper
+      payload_object.job_data['job_class']
     else
-      job.payload_object.class.name
+      payload_object.class.name
     end
   }
 end
