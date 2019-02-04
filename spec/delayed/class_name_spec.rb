@@ -10,9 +10,18 @@ describe Delayed::ClassName do
       end
     end
 
-    it 'assigns the class name of the payload object to class_name' do
-      Delayed::Job.enqueue TestJob.new
-      expect(job.class_name).to eq 'TestJob'
+    context 'when your job has a display_name method' do
+      it 'assigns the display name of the payload object to class_name' do
+        Delayed::Job.enqueue TestJobWithDisplayName.new
+        expect(job.class_name).to eq 'TestDisplayName'
+      end
+    end
+
+    context 'when your job does not have a display name method' do
+      it 'assigns the class name of the payload object to class_name' do
+        Delayed::Job.enqueue TestJob.new
+        expect(job.class_name).to eq 'TestJob'
+      end
     end
   end
 
