@@ -3,10 +3,8 @@ module Delayed
     class Plugin < Delayed::Plugin
       callbacks do |lifecycle|
         lifecycle.before(:enqueue) do |job|
-          payload_object = job.payload_object
-
           if Delayed::ClassName.configuration.custom_parser?
-            job.class_name = Delayed::ClassName.configuration.custom_parser.call payload_object
+            job.class_name = Delayed::ClassName.configuration.custom_parser.call job.payload_object
           else
             job.class_name = job.name
           end
